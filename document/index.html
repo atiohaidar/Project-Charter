@@ -4,20 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Project Charter Document</title>
+    <!-- Link to local style inside document folder -->
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            background: #525659;
-        }
-
-        /* Dark background for document view */
-    </style>
 </head>
 
 <body>
 
-    <div class="no-print" style="max-width: 210mm; margin: 20px auto; display: flex; gap: 10px;">
-        <button onclick="window.history.back()" class="secondary">← Edit Kembali</button>
+    <div class="no-print">
+        <!-- Back button points to parent directory -->
+        <button onclick="window.location.href='../index.html'" class="secondary">← Edit Kembali</button>
         <button onclick="window.print()" style="flex: 1;">🖨️ Print / Simpan PDF</button>
     </div>
 
@@ -25,34 +20,33 @@
     <div class="doc-page" id="doc-content">
 
         <div class="doc-header">
-            <h1 style="color: var(--primary); margin-bottom: 5px;">PROJECT CHARTER</h1>
-            <p style="color: #666; margin: 0; font-size: 1.2em;">Dokumen Inisiasi Proyek</p>
+            <h1>PROJECT CHARTER</h1>
         </div>
 
         <div class="doc-meta">
-            <table style="width: 100%; border-collapse: collapse;">
+            <table>
                 <tr>
-                    <td style="padding: 5px; width: 180px;"><strong>Nama Proyek</strong></td>
+                    <td style="width: 180px;"><strong>Nama Proyek</strong></td>
                     <td>: <span id="view-projectName"></span></td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px;"><strong>ID Dokumen</strong></td>
+                    <td><strong>ID Dokumen</strong></td>
                     <td>: <span id="view-projectId"></span></td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px;"><strong>Klien</strong></td>
+                    <td><strong>Klien</strong></td>
                     <td>: <span id="view-client"></span></td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px;"><strong>Tim Pengembang</strong></td>
+                    <td><strong>Tim Pengembang</strong></td>
                     <td>: <span id="view-freelancer"></span></td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px;"><strong>Periode</strong></td>
+                    <td><strong>Periode</strong></td>
                     <td>: <span id="view-startDate"></span> s/d <span id="view-endDate"></span></td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px;"><strong>Anggaran</strong></td>
+                    <td><strong>Anggaran</strong></td>
                     <td>: <span id="view-budget"></span></td>
                 </tr>
             </table>
@@ -103,8 +97,8 @@
             <p id="view-successCriteria">-</p>
         </div>
 
-        <div style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #eee;">
-            <h3 style="text-align: center; margin-bottom: 40px;">Pengesahan (Approval)</h3>
+        <div class="approval-box">
+            <h3 style="text-align: center; margin-bottom: 40px; border: none !important;">PENGESAHAN (APPROVAL)</h3>
 
             <div style="display: flex; justify-content: space-between; text-align: center;">
                 <div style="width: 40%;">
@@ -126,17 +120,8 @@
         </div>
     </div>
 
+    <!-- Link to local script inside document folder -->
     <script src="script.js"></script>
-    <script>
-        // Sync names for signature placeholder
-        document.addEventListener('DOMContentLoaded', () => {
-            const clientName = localStorage.getItem('client');
-            const freelancerName = localStorage.getItem('freelancer');
-
-            if (clientName) document.getElementById('view-client-sign').innerText = clientName;
-            if (freelancerName) document.getElementById('view-freelancer-sign').innerText = freelancerName;
-        });
-    </script>
 </body>
 
 </html>
