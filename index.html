@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Project Charter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 style="text-align: center; color: var(--primary); margin-bottom: 5px;">Project Charter Builder</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 40px;">Isi formulir berikut untuk membuat dokumen
+            Project Charter profesional.</p>
+
+        <form id="wizardForm" onsubmit="return false;">
+
+            <!-- SECTION 1: Identitas -->
+            <div class="form-section">
+                <h2>1. Identitas Proyek</h2>
+
+                <label for="projectName">Nama Proyek</label>
+                <div class="help-text">Contoh: Sistem Manajemen Gudang, Redesign Website Company Profile</div>
+                <input type="text" id="projectName" placeholder="Masukkan nama proyek...">
+
+                <label for="projectId">Nomor Dokumen / ID</label>
+                <div class="help-text">Contoh: PRJ-2024-001</div>
+                <input type="text" id="projectId" placeholder="ID Proyek...">
+
+                <div style="display: flex; gap: 20px;">
+                    <div style="flex: 1;">
+                        <label for="client">Nama Klien</label>
+                        <input type="text" id="client" placeholder="Nama Perusahaan / Individu">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="freelancer">Tim Pengembang / Freelancer</label>
+                        <input type="text" id="freelancer" placeholder="Nama Tim / Anda">
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 20px; margin-top: 10px;">
+                    <div style="flex: 1;">
+                        <label for="startDate">Tanggal Mulai</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="endDate">Target Selesai</label>
+                        <input type="date" id="endDate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Detail Scope -->
+            <div class="form-section">
+                <h2>2. Detail & Scope</h2>
+
+                <label for="background">Latar Belakang Proyek</label>
+                <div class="help-text">Mengapa proyek ini dikerjakan? Masalah apa yang ingin diselesaikan?</div>
+                <textarea id="background" placeholder="Jelaskan konteks dan alasan proyek ini..."></textarea>
+
+                <label for="objective">Tujuan & Sasaran</label>
+                <div class="help-text">Apa yang ingin dicapai secara spesifik?</div>
+                <textarea id="objective" placeholder="Tujuan utama proyek adalah..."></textarea>
+
+                <label for="scope">Ruang Lingkup (High Level Scope)</label>
+                <textarea id="scope" placeholder="Gambaran umum cakupan pekerjaan..."></textarea>
+
+                <div style="display: flex; gap: 20px;">
+                    <div style="flex: 1;">
+                        <label for="inScope" style="color: green;">✓ Termasuk (In Scope)</label>
+                        <textarea id="inScope" rows="5"
+                            placeholder="- Fitur Login&#10;- Dashboard Admin&#10;- Laporan Bulanan"></textarea>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="outOfScope" style="color: red;">✗ Tidak Termasuk (Out of Scope)</label>
+                        <textarea id="outOfScope" rows="5"
+                            placeholder="- Maintenance server&#10;- Konten artikel&#10;- Integrasi Payment Gateway"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: Analisis -->
+            <div class="form-section">
+                <h2>3. Analisis Pendukung</h2>
+
+                <label for="deliverables">Hasil Deliverables</label>
+                <div class="help-text">Apa saja yang akan diserahkan ke klien?</div>
+                <textarea id="deliverables"
+                    placeholder="- Source Code&#10;- Dokumen Panduan&#10;- Akun Hosting"></textarea>
+
+                <label for="assumptions">Asumsi & Batasan</label>
+                <textarea id="assumptions"
+                    placeholder="- Konten disediakan oleh klien&#10;- Server pakai Shared Hosting"></textarea>
+
+                <label for="risks">Risiko Proyek</label>
+                <textarea id="risks"
+                    placeholder="- Perubahan req di tengah jalan&#10;- Keterlambatan materi dari klien"></textarea>
+
+                <label for="successCriteria">Kriteria Kesuksesan</label>
+                <textarea id="successCriteria"
+                    placeholder="- Website load di bawah 3 detik&#10;- Memenuhi semua fitur di scope"></textarea>
+            </div>
+
+            <!-- SECTION 4: Finalisasi -->
+            <div class="form-section">
+                <h2>4. Finalisasi</h2>
+
+                <label for="budget">Total Anggaran / Biaya</label>
+                <input type="text" id="budget" placeholder="Rp ...">
+
+                <div
+                    style="margin-top: 40px; padding: 20px; background: #e6fffa; border-radius: 8px; border: 1px solid #b2f5ea;">
+                    <h3 style="margin-top: 0; color: #2c7a7b;">Siap Generate?</h3>
+                    <p>Pastikan semua data sudah terisi dengan benar. Anda akan diarahkan ke halaman dokumen yang siap
+                        untuk disimpan sebagai PDF.</p>
+                </div>
+            </div>
+
+            <button type="button" id="btn-generate" onclick="generateDocument()"
+                style="width: 100%; margin-top: 20px; background: #48bb78; padding: 15px; font-size: 1.1em;">Generate
+                Dokumen Project Charter ✓</button>
+
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
