@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
         'projectName', 'projectId', 'client', 'freelancer',
         'startDate', 'endDate', 'budget',
         'background', 'objective', 'scope', 'inScope', 'outOfScope',
-        'deliverables', 'assumptions', 'risks', 'successCriteria'
+        'deliverables', 'assumptions', 'risks', 'successCriteria',
+        'terms',
+        'customSectionTitle', 'customSectionContent'
     ];
     DataLoader.loadFields(fields);
     DataLoader.setDates();

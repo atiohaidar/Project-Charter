@@ -18,6 +18,11 @@ export const Storage = {
                 } else {
                     input.value = saved;
                 }
+            } else {
+                // If storage is empty but input has default value/content, save it to storage
+                if (input.value.trim() !== '') {
+                    localStorage.setItem(input.id, input.value);
+                }
             }
         });
 

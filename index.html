@@ -187,6 +187,26 @@
                     placeholder="- Website load di bawah 3 detik&#10;- Memenuhi semua fitur di scope"></textarea>
             </div>
 
+            <!-- SECTION EXTRA: Tambahan -->
+            <div class="form-section">
+                <h2>Bagian Tambahan (Opsional)</h2>
+
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_customSection">
+                    <label for="customSectionContent">Tambahkan Bagian Kustom</label>
+                    <span class="tooltip-hint">💡 Info
+                        <span class="hint-content">Gunakan ini untuk menambahkan klausul khusus, catatan tambahan, atau
+                            informasi lain yang tidak tercakup di bagian sebelumnya.</span>
+                    </span>
+                </div>
+
+                <label for="customSectionTitle">Judul Bagian</label>
+                <input type="text" id="customSectionTitle" placeholder="Contoh: Garansi & Maintenance">
+
+                <label for="customSectionContent" style="margin-top: 10px; display: block;">Isi Bagian</label>
+                <textarea id="customSectionContent" rows="4" placeholder="Tulis rincian tambahan di sini..."></textarea>
+            </div>
+
             <!-- SECTION 4: Finalisasi -->
             <div class="form-section">
                 <h2>4. Finalisasi</h2>
@@ -237,6 +257,14 @@
                     <div class="budget-summary">
                         TOTAL: RP <span id="calculated-total">0</span>
                     </div>
+                </div>
+
+
+                <div style="margin-top: 30px;">
+                    <label for="terms">Ketentuan & Persetujuan</label>
+                    <div class="help-text">Edit teks persetujuan yang akan muncul di dokumen akhir.</div>
+                    <textarea id="terms"
+                        rows="4">Dokumen ini merupakan kesepakatan formal antara Pihak Klien dan Tim Pengembang. Dengan menandatangani dokumen ini, kedua belah pihak menyetujui seluruh ruang lingkup, durasi, dan anggaran yang tercantum di atas. Perubahan ruang lingkup (Change Request) di kemudian hari dapat dikenakan biaya tambahan dan penyesuaian waktu.</textarea>
                 </div>
 
                 <!-- Signature Section Removed, moved to Document -->

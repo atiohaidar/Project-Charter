@@ -1,6 +1,6 @@
 export const Visibility = {
     init() {
-        const sectionsToToggle = ['background', 'objective', 'deliverables', 'successCriteria'];
+        const sectionsToToggle = ['background', 'objective', 'deliverables', 'successCriteria', 'customSection'];
         sectionsToToggle.forEach(section => {
             const isChecked = localStorage.getItem(`chk_${section}`) === 'true';
             const el = document.getElementById(`sec-${section}`);
