@@ -145,6 +145,7 @@
                 <div class="signature-col">
                     <div class="signature-label">Pihak Klien</div>
                     <div class="doc-signature-wrapper" style="position: relative;">
+                        <button type="button" class="btn-clear-sig" id="clear-sig-client">Hapus</button>
                         <canvas id="sig-client" width="300" height="100"
                             style="display: block; cursor: crosshair;"></canvas>
                     </div>
@@ -155,21 +156,23 @@
                 <div class="signature-col">
                     <div class="signature-label" style="text-align: right;">Pihak Pengembang</div>
                     <div class="doc-signature-wrapper" style="position: relative;">
+                        <button type="button" class="btn-clear-sig" id="clear-sig-developer">Hapus</button>
                         <canvas id="sig-developer" width="300" height="100"
                             style="display: block; cursor: crosshair;"></canvas>
                     </div>
                     <div class="signature-line"></div>
                     <p id="view-freelancer-sign"
-                        style="margin-top: 5px; font-weight: bold; min-height: 20px; text-align: right;"></p>
+                        style="margin-top: px; font-weight: bold; min-height: 20px; text-align: right;"></p>
                 </div>
             </div>
         </div>
+        <!-- FOOTER -->
+        <div class="doc-footer">
+            <span class="current-timestamp"></span>
+        </div>
     </div>
 
-    <!-- FOOTER -->
-    <div class="doc-footer">
-        <span class="current-timestamp"></span>
-    </div>
+
     </div>
 
     <!-- Link to local script inside document folder -->

@@ -166,12 +166,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 draw(e);
             }, { passive: false });
             canvas.addEventListener('touchend', stop);
+            canvas.addEventListener('touchcancel', stop);
 
             const saved = localStorage.getItem(storageKey);
             if (saved) {
                 const img = new Image();
                 img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
                 img.src = saved;
+            }
+
+            // --- Clear Functionality ---
+            const clearBtnId = canvasId === 'sig-client' ? 'clear-sig-client' : 'clear-sig-developer';
+            const clearBtn = document.getElementById(clearBtnId);
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    localStorage.removeItem(storageKey);
+                });
             }
         };
 
