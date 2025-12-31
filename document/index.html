@@ -52,70 +52,91 @@
             </table>
         </div>
 
-        <div class="doc-section">
-            <h3>1. Latar Belakang</h3>
+        <div class="doc-section" id="sec-background">
+            <h3>Latar Belakang</h3>
             <p id="view-background">-</p>
         </div>
 
-        <div class="doc-section">
-            <h3>2. Tujuan & Sasaran</h3>
+        <div class="doc-section" id="sec-objective">
+            <h3>Tujuan & Sasaran</h3>
             <p id="view-objective">-</p>
         </div>
 
-        <div class="doc-section">
-            <h3>3. Ruang Lingkup (Scope)</h3>
+        <div class="doc-section" id="sec-scope">
+            <h3>Ruang Lingkup (Scope)</h3>
             <p id="view-scope">-</p>
 
             <div class="scope-container">
-                <div class="scope-box in-scope">
+                <div class="scope-box in-scope" id="box-inScope">
                     <h4>TERMASUK (IN SCOPE)</h4>
                     <p id="view-inScope" style="font-size: 0.95em; line-height: 1.5;">-</p>
                 </div>
-                <div class="scope-box out-scope">
+                <div class="scope-box out-scope" id="box-outOfScope">
                     <h4>TIDAK TERMASUK (OUT SCOPE)</h4>
                     <p id="view-outOfScope" style="font-size: 0.95em; line-height: 1.5;">-</p>
                 </div>
             </div>
         </div>
 
-        <div class="doc-section">
-            <h3>4. Deliverables</h3>
+        <div class="doc-section" id="sec-deliverables">
+            <h3>Deliverables</h3>
             <p id="view-deliverables">-</p>
         </div>
 
-        <div class="doc-section">
-            <h3>5. Asumsi, Batasan & Risiko</h3>
-            <p><strong>Asumsi & Batasan:</strong></p>
-            <p id="view-assumptions" style="margin-top: 5px;">-</p>
+        <div class="doc-section" id="sec-assumptions">
+            <h3>Asumsi, Batasan & Risiko</h3>
+            <div id="sub-assumptions">
+                <p><strong>Asumsi & Batasan:</strong></p>
+                <p id="view-assumptions" style="margin-top: 5px;">-</p>
+            </div>
 
-            <p style="margin-top: 15px;"><strong>Risiko Utama:</strong></p>
-            <p id="view-risks" style="margin-top: 5px;">-</p>
+            <div id="sub-risks">
+                <p style="margin-top: 15px;"><strong>Risiko Utama:</strong></p>
+                <p id="view-risks" style="margin-top: 5px;">-</p>
+            </div>
         </div>
 
-        <div class="doc-section">
-            <h3>6. Kriteria Kesuksesan</h3>
+        <div class="doc-section" id="sec-successCriteria">
+            <h3>Kriteria Kesuksesan</h3>
             <p id="view-successCriteria">-</p>
         </div>
 
+        <div class="doc-section">
+            <h3>KETENTUAN & PERSETUJUAN</h3>
+            <p style="font-size: 0.9em; font-style: italic;">
+                Dokumen ini merupakan kesepakatan formal antara Pihak Klien dan Tim Pengembang. Dengan menandatangani
+                dokumen ini, kedua belah pihak menyetujui seluruh ruang lingkup, durasi, dan anggaran yang tercantum di
+                atas. Perubahan ruang lingkup (Change Request) di kemudian hari dapat dikenakan biaya tambahan dan
+                penyesuaian waktu.
+            </p>
+        </div>
+
         <div class="approval-box">
-            <h3 style="text-align: center; margin-bottom: 40px; border: none !important;">PENGESAHAN (APPROVAL)</h3>
+            <h3 style="text-align: center; margin-bottom: 5px; border: none !important;">PENGESAHAN (APPROVAL)</h3>
+            <p style="text-align: center; margin-top: 0; margin-bottom: 40px; color: #111;">Tanggal: <span
+                    class="current-date"></span></p>
 
             <div style="display: flex; justify-content: space-between; text-align: center;">
                 <div style="width: 40%;">
                     <p><strong>Pihak Klien</strong></p>
-                    <div style="height: 60px; border-bottom: 1px solid #333; margin-top: 20px;"></div>
-                    <p style="font-size: 0.9em; margin-top: 8px; color: #555;">( <span id="view-client-sign">Nama
-                            Jelas</span> )</p>
-                    <p style="font-size: 0.85em; color: #888;">Tanggal: <span class="current-date"></span></p>
+                    <div style="height: 80px; border-bottom: 1px solid #333; margin-top: 10px;"></div>
+                    <p id="view-client-sign" style="margin-top: 10px; font-weight: bold;"></p>
                 </div>
 
                 <div style="width: 40%;">
                     <p><strong>Pihak Pengembang</strong></p>
-                    <div style="height: 60px; border-bottom: 1px solid #333; margin-top: 20px;"></div>
-                    <p style="font-size: 0.9em; margin-top: 8px; color: #555;">( <span id="view-freelancer-sign">Nama
-                            Jelas</span> )</p>
-                    <p style="font-size: 0.85em; color: #888;">Tanggal: <span class="current-date"></span></p>
+                    <div style="height: 80px; border-bottom: 1px solid #333; margin-top: 10px;"></div>
+                    <p id="view-freelancer-sign" style="margin-top: 10px; font-weight: bold;"></p>
                 </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="doc-footer">
+
+            <div
+                style="border-top: 1px solid #333; margin-top: 5px; font-size: 0.8em; text-align: center; padding-top: 5px;">
+                <span class="current-timestamp"></span>
             </div>
         </div>
     </div>

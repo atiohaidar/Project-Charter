@@ -81,12 +81,32 @@ label {
     font-weight: 700;
     font-size: 1.1em;
     color: var(--pencil-color);
-    display: block;
-    margin-top: 20px;
+    /* margin-top: 20px; Moved to toggle-wrapper or direct label usage */
     background: var(--highlighter);
     display: inline-block;
     padding: 0 5px;
     transform: rotate(-0.5deg);
+    cursor: pointer;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.toggle-wrapper input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border: 2px solid var(--ink-color);
+    cursor: pointer;
+    /* Reset input styles that might conflict */
+    background: #fff;
+    -webkit-appearance: checkbox;
+    /* Ensure it looks like a checkbox */
+    appearance: checkbox;
 }
 
 .help-text {
@@ -147,4 +167,45 @@ button:hover {
 
 button:active {
     transform: scale(0.98);
+}
+
+/* --- UX ENHANCEMENTS --- */
+
+/* 1. Auto-Expanding Textarea */
+textarea {
+    resize: none;
+    /* User gabisa tarik manual */
+    overflow-y: hidden;
+    /* Hilangkan scrollbar */
+    min-height: 50px;
+}
+
+/* 2. Micro-Interaction: Section Completed Checkmark */
+.form-section h2 {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Class ini akan ditambahkan via JS ke h2 jika semua input di section tsb terisi */
+.section-complete::after {
+    content: '✓';
+    color: #48bb78;
+    /* Green */
+    font-family: 'Permanent Marker', cursive;
+    margin-left: 10px;
+    font-size: 1.2em;
+    display: inline-block;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
 }

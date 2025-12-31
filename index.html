@@ -56,25 +56,40 @@
             <div class="form-section">
                 <h2>2. Detail & Scope</h2>
 
-                <label for="background">Latar Belakang Proyek</label>
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_background" checked>
+                    <label for="background">Latar Belakang Proyek</label>
+                </div>
                 <div class="help-text">Mengapa proyek ini dikerjakan? Masalah apa yang ingin diselesaikan?</div>
                 <textarea id="background" placeholder="Jelaskan konteks dan alasan proyek ini..."></textarea>
 
-                <label for="objective">Tujuan & Sasaran</label>
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_objective" checked>
+                    <label for="objective">Tujuan & Sasaran</label>
+                </div>
                 <div class="help-text">Apa yang ingin dicapai secara spesifik?</div>
                 <textarea id="objective" placeholder="Tujuan utama proyek adalah..."></textarea>
 
-                <label for="scope">Ruang Lingkup (High Level Scope)</label>
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_scope" checked>
+                    <label for="scope">Ruang Lingkup (High Level Scope)</label>
+                </div>
                 <textarea id="scope" placeholder="Gambaran umum cakupan pekerjaan..."></textarea>
 
                 <div style="display: flex; gap: 20px;">
                     <div style="flex: 1;">
-                        <label for="inScope" style="color: green;">✓ Termasuk (In Scope)</label>
+                        <div class="toggle-wrapper">
+                            <input type="checkbox" id="chk_inScope" checked>
+                            <label for="inScope" style="color: green;">✓ Termasuk (In Scope)</label>
+                        </div>
                         <textarea id="inScope" rows="5"
                             placeholder="- Fitur Login&#10;- Dashboard Admin&#10;- Laporan Bulanan"></textarea>
                     </div>
                     <div style="flex: 1;">
-                        <label for="outOfScope" style="color: red;">✗ Tidak Termasuk (Out of Scope)</label>
+                        <div class="toggle-wrapper">
+                            <input type="checkbox" id="chk_outOfScope" checked>
+                            <label for="outOfScope" style="color: red;">✗ Tidak Termasuk (Out of Scope)</label>
+                        </div>
                         <textarea id="outOfScope" rows="5"
                             placeholder="- Maintenance server&#10;- Konten artikel&#10;- Integrasi Payment Gateway"></textarea>
                     </div>
@@ -85,20 +100,35 @@
             <div class="form-section">
                 <h2>3. Analisis Pendukung</h2>
 
-                <label for="deliverables">Hasil Deliverables</label>
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_deliverables" checked>
+                    <label for="deliverables">Hasil Deliverables</label>
+                </div>
                 <div class="help-text">Apa saja yang akan diserahkan ke klien?</div>
                 <textarea id="deliverables"
                     placeholder="- Source Code&#10;- Dokumen Panduan&#10;- Akun Hosting"></textarea>
 
-                <label for="assumptions">Asumsi & Batasan</label>
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_assumptions" checked>
+                    <label for="assumptions">Asumsi & Batasan</label>
+                </div>
+                <div class="help-text"><strong>Batasan:</strong> Kendala (Waktu, Budget, Teknis).
+                    <strong>Asumsi:</strong> Hal yang dianggap benar.
+                </div>
                 <textarea id="assumptions"
                     placeholder="- Konten disediakan oleh klien&#10;- Server pakai Shared Hosting"></textarea>
 
-                <label for="risks">Risiko Proyek</label>
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_risks" checked>
+                    <label for="risks">Risiko Proyek</label>
+                </div>
                 <textarea id="risks"
                     placeholder="- Perubahan req di tengah jalan&#10;- Keterlambatan materi dari klien"></textarea>
 
-                <label for="successCriteria">Kriteria Kesuksesan</label>
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_successCriteria" checked>
+                    <label for="successCriteria">Kriteria Kesuksesan</label>
+                </div>
                 <textarea id="successCriteria"
                     placeholder="- Website load di bawah 3 detik&#10;- Memenuhi semua fitur di scope"></textarea>
             </div>
@@ -107,7 +137,10 @@
             <div class="form-section">
                 <h2>4. Finalisasi</h2>
 
-                <label for="budget">Total Anggaran / Biaya</label>
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="chk_budget" checked>
+                    <label for="budget">Total Anggaran / Biaya</label>
+                </div>
                 <input type="text" id="budget" placeholder="Rp ...">
 
                 <div
