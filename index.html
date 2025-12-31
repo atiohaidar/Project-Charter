@@ -50,6 +50,22 @@
                         <input type="date" id="endDate">
                     </div>
                 </div>
+
+                <!-- Date UX Enhancements -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
+                    <div class="quick-dates">
+                        <span
+                            style="font-family: var(--font-body); font-size: 0.9em; color: #666; margin-right: 5px;">Set
+                            Durasi:</span>
+                        <button type="button" class="btn-micro" onclick="setDuration(1)">+1 Bln</button>
+                        <button type="button" class="btn-micro" onclick="setDuration(3)">+3 Bln</button>
+                        <button type="button" class="btn-micro" onclick="setDuration(6)">+6 Bln</button>
+                    </div>
+                    <div id="duration-display"
+                        style="font-family: 'Kalam', cursive; color: var(--ink-color); font-weight: bold;">
+                        <!-- Durasi akan muncul disini -->
+                    </div>
+                </div>
             </div>
 
             <!-- SECTION 2: Detail Scope -->
@@ -57,21 +73,21 @@
                 <h2>2. Detail & Scope</h2>
 
                 <div class="toggle-wrapper">
-                    <input type="checkbox" id="chk_background" checked>
+                    <input type="checkbox" id="chk_background">
                     <label for="background">Latar Belakang Proyek</label>
                 </div>
                 <div class="help-text">Mengapa proyek ini dikerjakan? Masalah apa yang ingin diselesaikan?</div>
                 <textarea id="background" placeholder="Jelaskan konteks dan alasan proyek ini..."></textarea>
 
                 <div class="toggle-wrapper">
-                    <input type="checkbox" id="chk_objective" checked>
+                    <input type="checkbox" id="chk_objective">
                     <label for="objective">Tujuan & Sasaran</label>
                 </div>
                 <div class="help-text">Apa yang ingin dicapai secara spesifik?</div>
                 <textarea id="objective" placeholder="Tujuan utama proyek adalah..."></textarea>
 
                 <div class="toggle-wrapper">
-                    <input type="checkbox" id="chk_scope" checked>
+                    <input type="checkbox" id="chk_scope">
                     <label for="scope">Ruang Lingkup (High Level Scope)</label>
                 </div>
                 <textarea id="scope" placeholder="Gambaran umum cakupan pekerjaan..."></textarea>
@@ -79,7 +95,7 @@
                 <div style="display: flex; gap: 20px;">
                     <div style="flex: 1;">
                         <div class="toggle-wrapper">
-                            <input type="checkbox" id="chk_inScope" checked>
+                            <input type="checkbox" id="chk_inScope">
                             <label for="inScope" style="color: green;">✓ Termasuk (In Scope)</label>
                         </div>
                         <textarea id="inScope" rows="5"
@@ -87,7 +103,7 @@
                     </div>
                     <div style="flex: 1;">
                         <div class="toggle-wrapper">
-                            <input type="checkbox" id="chk_outOfScope" checked>
+                            <input type="checkbox" id="chk_outOfScope">
                             <label for="outOfScope" style="color: red;">✗ Tidak Termasuk (Out of Scope)</label>
                         </div>
                         <textarea id="outOfScope" rows="5"
@@ -101,7 +117,7 @@
                 <h2>3. Analisis Pendukung</h2>
 
                 <div class="toggle-wrapper">
-                    <input type="checkbox" id="chk_deliverables" checked>
+                    <input type="checkbox" id="chk_deliverables">
                     <label for="deliverables">Hasil Deliverables</label>
                 </div>
                 <div class="help-text">Apa saja yang akan diserahkan ke klien?</div>
@@ -109,7 +125,7 @@
                     placeholder="- Source Code&#10;- Dokumen Panduan&#10;- Akun Hosting"></textarea>
 
                 <div class="toggle-wrapper">
-                    <input type="checkbox" id="chk_assumptions" checked>
+                    <input type="checkbox" id="chk_assumptions">
                     <label for="assumptions">Asumsi & Batasan</label>
                 </div>
                 <div class="help-text"><strong>Batasan:</strong> Kendala (Waktu, Budget, Teknis).
@@ -119,14 +135,14 @@
                     placeholder="- Konten disediakan oleh klien&#10;- Server pakai Shared Hosting"></textarea>
 
                 <div class="toggle-wrapper">
-                    <input type="checkbox" id="chk_risks" checked>
+                    <input type="checkbox" id="chk_risks">
                     <label for="risks">Risiko Proyek</label>
                 </div>
                 <textarea id="risks"
                     placeholder="- Perubahan req di tengah jalan&#10;- Keterlambatan materi dari klien"></textarea>
 
                 <div class="toggle-wrapper">
-                    <input type="checkbox" id="chk_successCriteria" checked>
+                    <input type="checkbox" id="chk_successCriteria">
                     <label for="successCriteria">Kriteria Kesuksesan</label>
                 </div>
                 <textarea id="successCriteria"
@@ -138,7 +154,7 @@
                 <h2>4. Finalisasi</h2>
 
                 <div class="toggle-wrapper">
-                    <input type="checkbox" id="chk_budget" checked>
+                    <input type="checkbox" id="chk_budget">
                     <label for="budget">Total Anggaran / Biaya</label>
                 </div>
                 <input type="text" id="budget" placeholder="Rp ...">
