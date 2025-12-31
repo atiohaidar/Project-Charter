@@ -699,7 +699,58 @@ textarea {
     box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
 }
 
-.radio-text {
-    line-height: 30px;
+/* Tooltip for Form Examples (Sticky Note Style) */
+.tooltip-hint {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    margin-left: 8px;
+    font-size: 0.8em;
+    background: #FFD54F !important;
+    color: #000 !important;
+    padding: 2px 8px !important;
+    border-radius: 4px;
+    font-family: 'Permanent Marker', cursive;
+    transform: rotate(2deg);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.tooltip-hint .hint-content {
+    visibility: hidden;
+    width: 250px;
+    background-color: #FFF9C4;
+    color: #333;
+    text-align: left;
+    border: 1px solid #FBC02D;
+    padding: 12px;
+    position: absolute;
+    z-index: 100;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1deg);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.1em;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
     pointer-events: none;
+    line-height: 1.4;
+    font-weight: normal;
+}
+
+.tooltip-hint:hover .hint-content {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip-hint .hint-content::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: #FBC02D transparent transparent transparent;
 }
