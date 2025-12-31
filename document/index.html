@@ -101,6 +101,28 @@
             <p id="view-successCriteria">-</p>
         </div>
 
+        <div class="doc-section" id="sec-budget-detailed" style="display: none;">
+            <h3>Rincian Anggaran</h3>
+            <table class="budget-table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                <thead>
+                    <tr style="background: #f4f4f4;">
+                        <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Deskripsi</th>
+                        <th style="border: 1px solid #ddd; padding: 8px; text-align: right; width: 150px;">Biaya</th>
+                    </tr>
+                </thead>
+                <tbody id="view-budget-details">
+                    <!-- Details here -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold;">TOTAL</td>
+                        <td id="view-budget-total"
+                            style="border: 1px solid #ddd; padding: 8px; text-align: right; font-weight: bold;">-</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
         <div class="doc-section">
             <h3>KETENTUAN & PERSETUJUAN</h3>
             <p style="font-size: 0.9em; font-style: italic;">
@@ -116,29 +138,44 @@
             <p style="text-align: center; margin-top: 0; margin-bottom: 40px; color: #111;">Tanggal: <span
                     class="current-date"></span></p>
 
-            <div style="display: flex; justify-content: space-between; text-align: center;">
-                <div style="width: 40%;">
-                    <p><strong>Pihak Klien</strong></p>
-                    <div style="height: 80px; border-bottom: 1px solid #333; margin-top: 10px;"></div>
-                    <p id="view-client-sign" style="margin-top: 10px; font-weight: bold;"></p>
+            <div style="display: flex; justify-content: space-around; margin-top: 40px;">
+                <div style="width: 280px; text-align: center;">
+                    <p style="margin-bottom: 5px;"><strong>Pihak Klien</strong></p>
+                    <div class="doc-signature-wrapper"
+                        style="border-bottom: 1px solid #333; height: 100px; position: relative; margin: 0 auto;">
+                        <canvas id="sig-client" width="280" height="100"
+                            style="display: block; cursor: crosshair;"></canvas>
+                        <div
+                            style="position: absolute; bottom: 2px; right: 2px; font-size: 0.6em; color: #ccc; pointer-events: none;">
+                            (Klik untuk TTD)</div>
+                    </div>
+                    <p id="view-client-sign" style="margin-top: 8px; font-weight: bold; min-height: 20px;"></p>
                 </div>
 
-                <div style="width: 40%;">
-                    <p><strong>Pihak Pengembang</strong></p>
-                    <div style="height: 80px; border-bottom: 1px solid #333; margin-top: 10px;"></div>
-                    <p id="view-freelancer-sign" style="margin-top: 10px; font-weight: bold;"></p>
+                <div style="width: 280px; text-align: center;">
+                    <p style="margin-bottom: 5px;"><strong>Pihak Pengembang</strong></p>
+                    <div class="doc-signature-wrapper"
+                        style="border-bottom: 1px solid #333; height: 100px; position: relative; margin: 0 auto;">
+                        <canvas id="sig-developer" width="280" height="100"
+                            style="display: block; cursor: crosshair;"></canvas>
+                        <div
+                            style="position: absolute; bottom: 2px; right: 2px; font-size: 0.6em; color: #ccc; pointer-events: none;">
+                            (Klik untuk TTD)</div>
+                    </div>
+                    <p id="view-freelancer-sign" style="margin-top: 8px; font-weight: bold; min-height: 20px;"></p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- FOOTER -->
-        <div class="doc-footer">
+    <!-- FOOTER -->
+    <div class="doc-footer">
 
-            <div
-                style="border-top: 1px solid #333; margin-top: 5px; font-size: 0.8em; text-align: center; padding-top: 5px;">
-                <span class="current-timestamp"></span>
-            </div>
+        <div
+            style="border-top: 1px solid #333; margin-top: 5px; font-size: 0.8em; text-align: center; padding-top: 5px;">
+            <span class="current-timestamp"></span>
         </div>
+    </div>
     </div>
 
     <!-- Link to local script inside document folder -->

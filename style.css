@@ -331,7 +331,142 @@ textarea {
 
 .btn-add-list:hover {
     background: #fff;
-    border-color: #2196f3 !important;
+    border-color: #2196f3;
     color: #2196f3 !important;
     transform: none !important;
+}
+
+/* 5. Sticky Tabs Navigation */
+#sticky-tabs {
+    position: fixed;
+    top: 20%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 100;
+}
+
+.tab-link {
+    display: block;
+    width: 50px;
+    height: 40px;
+    background-color: var(--tab-color, #eee);
+    color: var(--ink-color);
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding-left: 10px;
+    line-height: 40px;
+    border-radius: 10px 0 0 10px;
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    position: relative;
+    right: -10px;
+    /* Hide slightly */
+}
+
+.tab-link:hover {
+    transform: translateX(-15px);
+    /* Slide out */
+}
+
+/* 6. Floating Eraser (Reset) */
+#btn-reset-all {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--ink-color);
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 101;
+    transition: all 0.2s;
+}
+
+#btn-reset-all:hover {
+    background: #ffebee;
+    /* Red tint */
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+#btn-reset-all:active {
+    transform: scale(0.9);
+}
+
+/* 7. Signature Pad */
+.signature-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    border: 2px dashed var(--ink-color);
+    border-radius: 8px;
+    background: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+#signature-pad {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: crosshair;
+    touch-action: none;
+    /* Prevent scroll when signing on mobile */
+}
+
+#clear-signature {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ffeeff;
+    border: 1px solid #ffccbc;
+    color: #d84315;
+    font-size: 0.8em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-body);
+}
+
+#clear-signature:hover {
+    background: #ffccbc;
+}
+
+/* 8. Visual Progress Tab */
+.tab-link.complete::after {
+    content: '★';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    color: #ffd700;
+    /* Gold Star */
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0 #fff;
+    animation: bounce 0.5s;
+}
+
+.tab-link.complete {
+    background-color: #81c784 !important;
+    /* Green success */
+    color: white;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
 }

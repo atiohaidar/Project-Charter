@@ -42,6 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (clientName) document.getElementById('view-client-sign').innerText = clientName;
         if (freelancerName) document.getElementById('view-freelancer-sign').innerText = freelancerName;
+
+        // --- SIGNATURE HANDLER ---
+        initDocSignature('sig-client');
+        initDocSignature('sig-developer');
+
         // Checkbox Visibility Logic
         const sections = [
             'background', 'objective', 'deliverables', 'successCriteria'
@@ -96,3 +101,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+// Helper for Signatures on Document
+function initDocSignature(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    // Load saved signature if any
+    const savedSig = localStorage.getItem(`doc_${canvasId}`);
+    if (savedSig) {
+        const img = new Image();
+        img.onload = () => ctx.drawImage(img, 0, 0);
+        img.src = savedSig;
+    }
+
+    ctx.strokeStyle = '#000080'; // Navy ink
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+
+    const getPos = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+            x: clientX - rect.left,
+            y: clientY - rect.top
+        };
+    };
+
+    const start = (e) => {
+        isDrawing = true;
+        ctx.beginPath();
+        const pos = getPos(e);
+        ctx.moveTo(pos.x, pos.y);
+        e.preventDefault();
+    };
+
+    const move = (e) => {
+        if (!isDrawing) return;
+        const pos = getPos(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+        e.preventDefault();
+    };
+
+    const end = () => {
+        if (isDrawing) {
+            isDrawing = false;
+            // Save immediately
+            localStorage.setItem(`doc_${canvasId}`, canvas.toDataURL());
+        }
+    };
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    canvas.addEventListener('mouseup', end);
+
+    canvas.addEventListener('touchstart', start, { passive: false });
+    canvas.addEventListener('touchmove', move, { passive: false });
+    canvas.addEventListener('touchend', end);
+}
