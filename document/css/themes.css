@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;700&family=EB+Garamond:wght@400;700&display=swap');
+
+/* Default Theme Variables (Typewriter) */
+:root {
+    --doc-font: 'Special Elite', cursive;
+    --doc-bg: #fffbf0;
+    --doc-ink: #2b2b2b;
+    --doc-accent-line: #000;
+    --doc-shadow: rgba(0, 0, 0, 0.5);
+    --page-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    --line-decoration: none;
+}
+
+/* Folio Theme */
+body[data-theme="folio"] {
+    --doc-font: 'EB Garamond', serif;
+    --doc-bg: #fdfdfd;
+    --doc-ink: #2c3e50;
+    --doc-accent-line: #b0c4de;
+    --doc-shadow: rgba(0, 0, 0, 0.2);
+    /* Improved horizontal lines */
+    --page-texture: linear-gradient(to bottom, transparent 29px, #e1e9f5 29px);
+    --page-texture-size: 100% 30px;
+    --line-decoration: solid 2px #ffb3b3;
+}
+
+body[data-theme="folio"] .doc-page {
+    padding-left: 45mm;
+    /* Adjusted padding to accommodate the margin line */
+    line-height: 30px;
+    /* Matches the background line height (30px) */
+    background-attachment: local;
+}
+
+body[data-theme="folio"] .doc-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 35mm;
+    /* Standard vertical margin for folio paper */
+    bottom: 0;
+    width: 2px;
+    background-color: #ffb3b3;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Ensure headings look clean on the lines */
+body[data-theme="folio"] h1,
+body[data-theme="folio"] h3,
+body[data-theme="folio"] h4 {
+    background-color: var(--doc-bg);
+    display: inline-block;
+    padding: 0 5px;
+    margin-left: -5px;
+}
+
+body[data-theme="folio"] .doc-header h1 {
+    text-align: center;
+    border-bottom: 2px solid var(--doc-ink);
+    display: block;
+    margin-right: -10mm;
+    /* Allow it to center better despite large left padding */
+}
+
+/* Modern Theme */
+body[data-theme="modern"] {
+    --doc-font: 'Inter', sans-serif;
+    --doc-bg: #ffffff;
+    --doc-ink: #111827;
+    --doc-accent-line: #3b82f6;
+    --doc-shadow: rgba(0, 0, 0, 0.1);
+    --page-texture: none;
+    --line-decoration: none;
+}
+
+/* Theme-specific Heading Adjustments */
+body[data-theme="modern"] .doc-header h1 {
+    border-bottom: 4px solid var(--doc-accent-line);
+    text-align: left;
+}
+
+body[data-theme="typewriter"] .doc-header h1 {
+    text-align: center;
+    border-bottom: 4px double #000;
+}

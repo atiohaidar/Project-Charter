@@ -1,0 +1,52 @@
+/* Utils */
+.no-print {
+    max-width: 210mm;
+    margin: 20px auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.theme-selector {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #fff;
+    padding: 5px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.theme-selector label {
+    font-family: sans-serif;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+}
+
+.theme-selector select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-family: sans-serif;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: var(--doc-font);
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+}
+
+button:hover {
+    background: #f8f8f8;
+    transform: translateY(-1px);
+}
+
+button.secondary {
+    background: #f0f0f0;
+}

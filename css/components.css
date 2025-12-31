@@ -1,0 +1,252 @@
+/* Sticky Tabs Navigation */
+#sticky-tabs {
+    position: fixed;
+    top: 20%;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 100;
+}
+
+.tab-link {
+    display: block;
+    width: 50px;
+    height: 40px;
+    background-color: var(--tab-color, #eee);
+    color: var(--ink-color);
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding-left: 10px;
+    line-height: 40px;
+    border-radius: 10px 0 0 10px;
+    box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    position: relative;
+    right: -10px;
+}
+
+.tab-link:hover {
+    transform: translateX(-15px);
+}
+
+/* Tab Colors */
+.tab-link:nth-child(1) {
+    --tab-color: #ff8a80;
+}
+
+/* Identitas */
+.tab-link:nth-child(2) {
+    --tab-color: #ffd180;
+}
+
+/* Scope */
+.tab-link:nth-child(3) {
+    --tab-color: #80d8ff;
+}
+
+/* Analisis */
+.tab-link:nth-child(4) {
+    --tab-color: #ccff90;
+}
+
+/* Finalisasi */
+
+.tab-link.complete {
+    background-color: #81c784 !important;
+    color: white;
+}
+
+.tab-link.complete::after {
+    content: '★';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    color: #ffd700;
+    font-size: 1.2em;
+    text-shadow: 1px 1px 0 #fff;
+    animation: bounce 0.5s;
+}
+
+/* Dynamic List Builder */
+.dynamic-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.dynamic-item {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--ink-color);
+    transition: all 0.2s;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+
+.dynamic-item:focus-within {
+    background: #fff;
+    transform: scale(1.02) rotate(-1deg);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+    border-color: #2196f3;
+    flex: 1 0 100%;
+}
+
+/* Cost Items & Budget */
+.cost-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 5px;
+    align-items: flex-end;
+}
+
+.budget-summary {
+    margin-top: 30px;
+    text-align: right;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Permanent Marker', cursive;
+    color: var(--ink-color);
+}
+
+/* Radio & Tooltips */
+.budget-mode-selector {
+    display: flex;
+    gap: 25px;
+    margin: 10px 0 20px 0;
+}
+
+.radio-container {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 1.1em;
+    position: relative;
+    padding-left: 35px;
+    min-height: 30px;
+}
+
+.radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    z-index: 2;
+}
+
+.radio-checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 24px;
+    border: 2px solid var(--ink-color);
+    border-radius: 50% 45% 52% 48% / 48% 52% 45% 50%;
+    transition: all 0.2s;
+    z-index: 1;
+}
+
+.radio-container input:checked~.radio-checkmark {
+    border-width: 3px;
+    background-color: rgba(26, 35, 126, 0.05);
+}
+
+.radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 4px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ink-color);
+}
+
+.radio-container input:checked~.radio-checkmark:after {
+    display: block;
+}
+
+.radio-text {
+    pointer-events: none;
+}
+
+/* Tooltip & Hints */
+.tooltip-hint {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    background: #FFD54F !important;
+    padding: 2px 8px !important;
+    border-radius: 4px;
+    font-family: 'Permanent Marker', cursive;
+    transform: rotate(2deg);
+    margin-left: 10px;
+}
+
+.hint-content,
+.tooltip-msg {
+    visibility: hidden;
+    background-color: #FFF9C4;
+    border: 1px solid #FBC02D;
+    padding: 10px;
+    position: absolute;
+    z-index: 100;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1deg);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-family: 'Indie Flower', cursive;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+    width: 240px;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.4;
+    font-weight: normal;
+    color: #333;
+}
+
+.hint-content::after,
+.tooltip-msg::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: #FBC02D transparent transparent transparent;
+}
+
+.radio-container:hover .tooltip-msg,
+.tooltip-hint:hover .hint-content {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Signature Pad */
+.signature-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    border: 2px dashed var(--ink-color);
+    border-radius: 8px;
+    background: white;
+}
+
+#signature-pad {
+    width: 100%;
+    cursor: crosshair;
+}

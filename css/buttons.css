@@ -1,0 +1,122 @@
+button {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.3em;
+    padding: 10px 30px;
+    background: #ffeb3b;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    cursor: pointer;
+    box-shadow: 2px 5px 0px rgba(0, 0, 0, 0.2);
+    transition: all 0.1s;
+    margin-top: 20px;
+}
+
+button:hover {
+    transform: scale(1.02) rotate(-1deg);
+    box-shadow: 3px 6px 0px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.btn-clear-all {
+    background: none;
+    border: 1px solid #e57373;
+    color: #e57373;
+    font-family: 'Indie Flower', cursive;
+    font-size: 0.9em;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 15px 3px 15px 3px / 3px 15px 3px 15px;
+    transition: all 0.3s;
+}
+
+.btn-clear-all:hover {
+    background: #ffebee;
+    transform: scale(1.05) rotate(1deg);
+}
+
+.btn-micro {
+    font-family: 'Kalam', cursive;
+    font-size: 0.8em;
+    padding: 2px 8px;
+    margin-right: 5px;
+    background: #fff;
+    border: 1px dashed var(--pencil-color);
+    border-radius: 4px;
+    color: #555;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-top: 0;
+}
+
+.btn-micro:hover {
+    background: #fff9c4;
+    transform: rotate(-2deg);
+    border-color: var(--ink-color);
+    color: var(--ink-color);
+}
+
+.btn-add-item {
+    font-family: 'Permanent Marker', cursive !important;
+    font-size: 1.1em !important;
+    padding: 8px 20px !important;
+    background: #e2e8f0 !important;
+    border: 2px dashed #333 !important;
+    margin-top: 15px !important;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 12px 2px 12px 2px / 2px 12px 2px 12px !important;
+}
+
+.btn-add-list {
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px dashed var(--ink-color) !important;
+    color: var(--ink-color) !important;
+    width: 100%;
+    border-radius: 12px !important;
+    padding: 10px !important;
+    font-size: 1em !important;
+    font-family: 'Kalam', cursive !important;
+    box-shadow: none !important;
+}
+
+.btn-add-list:hover {
+    background: #fff;
+    border-color: #2196f3;
+    color: #2196f3 !important;
+    transform: none !important;
+}
+
+/* Floating Eraser Reset Button */
+#btn-reset-all {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--ink-color);
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.2s;
+    padding: 0;
+    margin: 0;
+}
+
+#btn-reset-all:hover {
+    background: #ffebee;
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+#btn-reset-all:active {
+    transform: scale(0.9);
+}

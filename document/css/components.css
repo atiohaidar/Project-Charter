@@ -1,0 +1,149 @@
+/* Automatic Numbering */
+.doc-section h3::before {
+    counter-increment: doc-section;
+    content: counter(doc-section) ". ";
+}
+
+.doc-meta {
+    border-top: 1px solid var(--doc-accent-line);
+    border-bottom: 2px solid var(--doc-accent-line);
+    padding: 20px 0;
+    margin-bottom: 40px;
+    background: transparent;
+}
+
+.doc-meta table {
+    width: 100%;
+}
+
+.doc-meta td {
+    vertical-align: top;
+    padding-bottom: 8px;
+}
+
+.doc-section {
+    margin-bottom: 35px;
+}
+
+.doc-section h3 {
+    border-bottom: 1px solid var(--doc-accent-line);
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* Scope Section */
+.scope-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 25px;
+}
+
+.scope-box {
+    border: 1px solid var(--doc-ink);
+    padding: 15px;
+    background: transparent;
+}
+
+.scope-box h4 {
+    border-bottom: 1px dashed var(--doc-ink);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-size: 1em;
+}
+
+.in-scope h4::before {
+    content: "[ + ] ";
+    font-weight: bold;
+}
+
+.out-scope h4::before {
+    content: "[ X ] ";
+    font-weight: bold;
+}
+
+/* Approval Box */
+.approval-box {
+    margin-top: auto;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.approval-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.approval-date {
+    margin-top: 0;
+    margin-bottom: 50px;
+    font-size: 1.1em;
+}
+
+.signature-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+.signature-col {
+    width: 40%;
+    text-align: left;
+}
+
+.signature-label {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.signature-line {
+    border-bottom: 1px solid var(--doc-ink);
+    width: 100%;
+    margin-top: 5px;
+}
+
+.doc-signature-wrapper canvas {
+    width: 100%;
+    height: auto;
+}
+
+.btn-clear-sig {
+    position: absolute;
+    top: -5px;
+    right: 0;
+    padding: 2px 8px;
+    font-size: 0.7em;
+    background: var(--doc-bg);
+    border: 1px solid var(--doc-ink);
+    border-radius: 0;
+    cursor: pointer;
+    font-family: var(--doc-font);
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.doc-signature-wrapper:hover .btn-clear-sig {
+    opacity: 1;
+}
+
+.btn-clear-sig:hover {
+    background: #f0f0f0;
+}
+
+.doc-footer {
+    border-top: 3px double var(--doc-accent-line);
+    padding-top: 5px;
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.current-timestamp {
+    font-size: 0.8em;
+}

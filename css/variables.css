@@ -1,0 +1,11 @@
+/* Notebook Vars (Form) */
+:root {
+    --paper-color: #fdfbf7;
+    --line-color: #a4c5e3;
+    --margin-line: #f29a9a;
+    --ink-color: #1a237e;
+    --pencil-color: #424242;
+    --highlighter: rgba(255, 241, 118, 0.7);
+    --font-heading: 'Kalam', cursive;
+    --font-body: 'Indie Flower', cursive;
+}

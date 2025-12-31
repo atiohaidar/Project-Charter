@@ -1,0 +1,25 @@
+/* Print Overrides */
+@media print {
+    body {
+        background: none !important;
+    }
+
+    .doc-page {
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 20mm !important;
+    }
+
+    body[data-theme="folio"] .doc-page::before {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .no-print,
+    .btn-clear-sig {
+        display: none !important;
+    }
+}

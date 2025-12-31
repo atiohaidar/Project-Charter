@@ -1,0 +1,85 @@
+.form-section {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+}
+
+h2 {
+    font-family: var(--font-heading);
+    color: var(--ink-color);
+    border-bottom: 3px solid var(--ink-color);
+    display: inline-block;
+    border-radius: 90% 10% 80% 30% / 10% 80% 20% 90%;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+label:not(.radio-container):not(.radio-text) {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--pencil-color);
+    background: var(--highlighter);
+    display: inline-block;
+    padding: 0 5px;
+    transform: rotate(-0.5deg);
+    cursor: pointer;
+}
+
+input,
+textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--ink-color);
+    background: transparent;
+    font-family: 'Kalam', cursive;
+    font-size: 1.2em;
+    color: var(--ink-color);
+    padding: 0 10px;
+    margin-bottom: 15px;
+    outline: none;
+    line-height: 30px;
+    transition: all 0.2s;
+}
+
+textarea {
+    border: 2px dashed var(--ink-color);
+    border-radius: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    resize: none;
+    overflow-y: hidden;
+    min-height: 50px;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #e53935;
+    background: rgba(255, 235, 59, 0.1);
+}
+
+.help-text {
+    font-size: 0.9em;
+    color: #757575;
+    margin-bottom: 5px;
+    font-style: italic;
+    line-height: 30px;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.toggle-wrapper input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border: 2px solid var(--ink-color);
+    cursor: pointer;
+    background: #fff;
+    -webkit-appearance: checkbox;
+    appearance: checkbox;
+}

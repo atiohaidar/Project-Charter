@@ -13,6 +13,16 @@
     <div class="no-print">
         <!-- Back button points to parent directory -->
         <button onclick="window.location.href='../index.html'" class="secondary">← Edit Kembali</button>
+
+        <div class="theme-selector">
+            <label for="theme-select">Tema:</label>
+            <select id="theme-select">
+                <option value="typewriter">Mesin Ketik</option>
+                <option value="folio">Kertas Folio</option>
+                <option value="modern">Modern Minimalist</option>
+            </select>
+        </div>
+
         <button onclick="window.print()" style="flex: 1;">🖨️ Print / Simpan PDF</button>
     </div>
 
@@ -176,7 +186,7 @@
     </div>
 
     <!-- Link to local script inside document folder -->
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
