@@ -18,10 +18,54 @@ document.addEventListener('DOMContentLoaded', () => {
                     savedVal = savedVal.replace(/\n/g, '<br>');
                     el.innerHTML = savedVal;
                 } else {
-                    el.innerHTML = '-'; // Placeholder
+                    el.innerHTML = '-';
                 }
             }
         });
+
+        // --- HANDLE BUDGET DISPLAY ---
+        const budgetMode = localStorage.getItem('budgetMode') || 'simple';
+        const budgetDetailsStr = localStorage.getItem('budgetDetails');
+        const budgetDetailedSection = document.getElementById('sec-budget-detailed');
+        const budgetSimpleLine = document.getElementById('view-budget'); // The span in metadata
+
+        if (budgetMode === 'detailed' && budgetDetailsStr) {
+            try {
+                const items = JSON.parse(budgetDetailsStr);
+                const tableBody = document.getElementById('view-budget-details');
+                const totalDisplay = document.getElementById('view-budget-total');
+
+                if (items && items.length > 0 && tableBody) {
+                    budgetDetailedSection.style.display = 'block';
+                    tableBody.innerHTML = '';
+
+                    items.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td style="border: 1px solid #000; padding: 10px;">${item.desc || '-'}</td>
+                            <td style="border: 1px solid #000; padding: 10px; text-align: right;">Rp ${item.amount || '0'}</td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+
+                    const total = localStorage.getItem('budget') || '0';
+                    if (totalDisplay) {
+                        totalDisplay.innerText = `Rp ${total}`;
+                    }
+
+                    // Update the simple budget line in metadata to include a note
+                    if (budgetSimpleLine) {
+                        budgetSimpleLine.innerText = `Rp ${total} (Rincian Terlampir)`;
+                    }
+                }
+            } catch (e) {
+                console.error("Error parsing budget details", e);
+            }
+        } else if (budgetSimpleLine) {
+            // Simple mode: ensure it has Rp prefix
+            const val = localStorage.getItem('budget') || '0';
+            budgetSimpleLine.innerText = `Rp ${val}`;
+        }
 
         // Current Date for Signatures
         const dateEls = document.querySelectorAll('.current-date');
@@ -30,40 +74,128 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Current Timestamp for Footer
         const timeEls = document.querySelectorAll('.current-timestamp');
-        const now = new Date().toLocaleString('id-ID', {
-            year: 'numeric', month: 'long', day: 'numeric',
-            hour: '2-digit', minute: '2-digit'
-        });
-        timeEls.forEach(el => el.textContent = now);
+        const d = new Date();
+        const day = d.getDate();
+        const month = d.toLocaleDateString('id-ID', { month: 'long' });
+        const year = d.getFullYear();
+        const hours = String(d.getHours()).padStart(2, '0');
+        const minutes = String(d.getMinutes()).padStart(2, '0');
+
+        const timestampStr = `${day} ${month} ${year} pukul ${hours}.${minutes}`;
+        timeEls.forEach(el => el.textContent = timestampStr);
 
         // Sync names for signature placeholder
         const clientName = localStorage.getItem('client');
         const freelancerName = localStorage.getItem('freelancer');
 
-        if (clientName) document.getElementById('view-client-sign').innerText = clientName;
-        if (freelancerName) document.getElementById('view-freelancer-sign').innerText = freelancerName;
+        if (clientName) {
+            const signEl = document.getElementById('view-client-sign');
+            if (signEl) signEl.innerText = clientName;
+        }
+        if (freelancerName) {
+            const signEl = document.getElementById('view-freelancer-sign');
+            if (signEl) signEl.innerText = freelancerName;
+        }
 
-        // --- SIGNATURE HANDLER ---
-        initDocSignature('sig-client');
-        initDocSignature('sig-developer');
+        // --- SIGNATURE PAD LOGIC ---
+        const setupSignature = (canvasId, storageKey) => {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
 
-        // Checkbox Visibility Logic
-        const sections = [
+            const ctx = canvas.getContext('2d');
+
+            // Fix Resolution for sharp lines (Retina/High-DPI)
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            canvas.style.width = `${rect.width}px`;
+            canvas.style.height = `${rect.height}px`;
+
+            let isDrawing = false;
+
+            // Context Style - Natural Ink Blue
+            ctx.strokeStyle = '#1a237e';
+            ctx.lineWidth = 2.5;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+                return {
+                    x: clientX - rect.left,
+                    y: clientY - rect.top
+                };
+            };
+            // ... (rest of the logic remains same, but using the sharper context)
+            const start = (e) => {
+                isDrawing = true;
+                const pos = getPos(e);
+                ctx.beginPath();
+                ctx.moveTo(pos.x, pos.y);
+            };
+
+            const draw = (e) => {
+                if (!isDrawing) return;
+                const pos = getPos(e);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+            };
+
+            const stop = () => {
+                if (isDrawing) {
+                    isDrawing = false;
+                    localStorage.setItem(storageKey, canvas.toDataURL());
+                }
+            };
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stop);
+            canvas.addEventListener('mouseout', stop);
+
+            canvas.addEventListener('touchstart', (e) => {
+                if (e.target === canvas) e.preventDefault();
+                start(e);
+            }, { passive: false });
+            canvas.addEventListener('touchmove', (e) => {
+                if (e.target === canvas) e.preventDefault();
+                draw(e);
+            }, { passive: false });
+            canvas.addEventListener('touchend', stop);
+
+            const saved = localStorage.getItem(storageKey);
+            if (saved) {
+                const img = new Image();
+                img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
+                img.src = saved;
+            }
+        };
+
+        setupSignature('sig-client', 'signatureDataClient');
+        setupSignature('sig-developer', 'signatureDataDeveloper');
+
+        // --- VISIBILITY LOGIC ---
+        // Hide sections that are not checked/filled in the form
+        const sectionsToToggle = [
             'background', 'objective', 'deliverables', 'successCriteria'
         ];
 
-        sections.forEach(section => {
-            const isChecked = localStorage.getItem(`chk_${section}`) !== 'false'; // Default to true
+        sectionsToToggle.forEach(section => {
+            const isChecked = localStorage.getItem(`chk_${section}`) === 'true';
             const el = document.getElementById(`sec-${section}`);
             if (el && !isChecked) {
                 el.style.display = 'none';
             }
         });
 
-        // --- SCOPE SECTION LOGIC ---
-        const chkScope = localStorage.getItem('chk_scope') !== 'false';
-        const chkInScope = localStorage.getItem('chk_inScope') !== 'false';
-        const chkOutScope = localStorage.getItem('chk_outOfScope') !== 'false';
+        // Scope Logic (Complex karena ada sub-checkbox)
+        const chkScope = localStorage.getItem('chk_scope') === 'true';
+        const chkInScope = localStorage.getItem('chk_inScope') === 'true';
+        const chkOutScope = localStorage.getItem('chk_outOfScope') === 'true';
 
         const elSecScope = document.getElementById('sec-scope');
         const elViewScope = document.getElementById('view-scope');
@@ -71,96 +203,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const elBoxOutScope = document.getElementById('box-outOfScope');
 
         if (elSecScope) {
-            // 1. Control High Level Scope Text
             if (!chkScope) {
                 if (elViewScope) elViewScope.style.display = 'none';
             }
-
-            // 2. Control In/Out Scope Boxes
             if (!chkInScope && elBoxInScope) elBoxInScope.style.display = 'none';
             if (!chkOutScope && elBoxOutScope) elBoxOutScope.style.display = 'none';
 
-            // 3. Hide entire section if NOTHING is checked
+            // Hide entire scope section if nothing is checked
             if (!chkScope && !chkInScope && !chkOutScope) {
                 elSecScope.style.display = 'none';
             }
         }
 
-        // Combined Assumptions & Risks Section
-        const chkAssumptions = localStorage.getItem('chk_assumptions') !== 'false';
-        const chkRisks = localStorage.getItem('chk_risks') !== 'false';
+        // Assumptions & Risks Logic
+        const chkAssumptions = localStorage.getItem('chk_assumptions') === 'true';
+        const chkRisks = localStorage.getItem('chk_risks') === 'true';
         const secAssumptions = document.getElementById('sec-assumptions');
 
         if (secAssumptions) {
             if (!chkAssumptions && !chkRisks) {
                 secAssumptions.style.display = 'none';
             } else {
-                if (!chkAssumptions) document.getElementById('sub-assumptions').style.display = 'none';
-                if (!chkRisks) document.getElementById('sub-risks').style.display = 'none';
+                const subAssumptions = document.getElementById('sub-assumptions');
+                const subRisks = document.getElementById('sub-risks');
+                if (!chkAssumptions && subAssumptions) subAssumptions.style.display = 'none';
+                if (!chkRisks && subRisks) subRisks.style.display = 'none';
             }
         }
     }
 });
-
-// Helper for Signatures on Document
-function initDocSignature(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let isDrawing = false;
-
-    // Load saved signature if any
-    const savedSig = localStorage.getItem(`doc_${canvasId}`);
-    if (savedSig) {
-        const img = new Image();
-        img.onload = () => ctx.drawImage(img, 0, 0);
-        img.src = savedSig;
-    }
-
-    ctx.strokeStyle = '#000080'; // Navy ink
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-
-    const getPos = (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return {
-            x: clientX - rect.left,
-            y: clientY - rect.top
-        };
-    };
-
-    const start = (e) => {
-        isDrawing = true;
-        ctx.beginPath();
-        const pos = getPos(e);
-        ctx.moveTo(pos.x, pos.y);
-        e.preventDefault();
-    };
-
-    const move = (e) => {
-        if (!isDrawing) return;
-        const pos = getPos(e);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-        e.preventDefault();
-    };
-
-    const end = () => {
-        if (isDrawing) {
-            isDrawing = false;
-            // Save immediately
-            localStorage.setItem(`doc_${canvasId}`, canvas.toDataURL());
-        }
-    };
-
-    canvas.addEventListener('mousedown', start);
-    canvas.addEventListener('mousemove', move);
-    canvas.addEventListener('mouseup', end);
-
-    canvas.addEventListener('touchstart', start, { passive: false });
-    canvas.addEventListener('touchmove', move, { passive: false });
-    canvas.addEventListener('touchend', end);
-}

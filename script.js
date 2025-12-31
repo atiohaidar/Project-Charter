@@ -16,15 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Modules
     UI.init();
     Dates.init();
-    Budget.init();
     DynamicList.init(['inScope', 'outOfScope', 'deliverables', 'assumptions', 'risks', 'successCriteria']);
     Navigation.init();
     Signature.init();
+    Budget.init();
 
-    // Global Action for Generate Button (still needs to be on window for onclick attr or changed to listener)
-    // Ideally, we move this to a proper listener in the future, but for compatibility with existing HTML:
+    // Map Budget functions to window for HTML event handlers
+    window.toggleBudgetMode = () => {
+        const checked = document.querySelector('input[name="budgetMode"]:checked');
+        if (checked) Budget.toggleMode(checked.value);
+    };
+    window.addCostItem = () => Budget.addItem();
+    window.formatCurrencyInput = (el) => Budget.formatCurrency(el);
+    window.resetBudget = () => Budget.resetBudget();
+
+    // Global Action for Generate Button
     window.generateDocument = () => {
-        // Ensure signature is saved before navigation
         if (Signature.canvas) {
             Storage.save('signatureData', Signature.canvas.toDataURL());
         }

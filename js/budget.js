@@ -1,33 +1,36 @@
 import { Storage } from './storage.js';
+import { UI } from './ui.js';
 
 export const Budget = {
     init: () => {
-        // Expose functions to window for HTML event handlers
-        window.toggleBudgetMode = Budget.toggleMode;
-        window.formatCurrencyInput = Budget.formatCurrency;
-        window.addCostItem = () => Budget.addListItem();
-        window.removeCostItem = (btn) => Budget.removeItem(btn);
+        const simpleRadio = document.querySelector('input[name="budgetMode"][value="simple"]');
+        const detailedRadio = document.querySelector('input[name="budgetMode"][value="detailed"]');
 
-        // Initial Load
-        const savedMode = Storage.get('budgetMode') || 'simple';
-        const radio = document.querySelector(`input[name="budgetMode"][value="${savedMode}"]`);
-        if (radio) radio.checked = true;
-        Budget.toggleMode();
-
-        // Load detailed items if any
-        const savedItems = Storage.get('budgetDetails');
-        if (savedItems) {
-            const items = JSON.parse(savedItems);
-            items.forEach(item => Budget.addListItem(item.desc, item.price));
+        if (simpleRadio && detailedRadio) {
+            simpleRadio.addEventListener('change', () => Budget.toggleMode('simple'));
+            detailedRadio.addEventListener('change', () => Budget.toggleMode('detailed'));
         }
 
-        Budget.calculateTotal();
+        const budgetInput = document.getElementById('budget');
+        if (budgetInput) {
+            budgetInput.addEventListener('input', (e) => {
+                Budget.formatCurrency(e.target);
+                Storage.save('budget', e.target.value);
+            });
+        }
+
+        // Load existing mode
+        const savedMode = Storage.get('budgetMode') || 'simple';
+        Budget.toggleMode(savedMode);
+
+        // Load detailed items
+        Budget.loadItems();
     },
 
-    toggleMode: () => {
-        const mode = document.querySelector('input[name="budgetMode"]:checked').value;
+    toggleMode: (mode) => {
         const simpleDiv = document.getElementById('budget-simple');
         const detailedDiv = document.getElementById('budget-detailed');
+        if (!simpleDiv || !detailedDiv) return;
 
         if (mode === 'simple') {
             simpleDiv.style.display = 'block';
@@ -35,82 +38,154 @@ export const Budget = {
         } else {
             simpleDiv.style.display = 'none';
             detailedDiv.style.display = 'block';
+
+            // Add default item if empty
+            const container = document.getElementById('cost-items-container');
+            if (container && container.children.length === 0) {
+                Budget.addItem();
+            }
+            Budget.updateTotal();
         }
 
         Storage.save('budgetMode', mode);
+
+        // Update radios to match visually
+        const radio = document.querySelector(`input[name="budgetMode"][value="${mode}"]`);
+        if (radio) radio.checked = true;
     },
 
-    formatCurrency: (el) => {
-        let val = el.value.replace(/[^0-9]/g, '');
-        if (val) {
-            el.value = parseInt(val).toLocaleString('id-ID');
-        } else {
-            el.value = '';
+    formatCurrency: (input) => {
+        let value = input.value.replace(/\D/g, '');
+        if (value === '') {
+            input.value = '';
+            return;
         }
-        Budget.calculateTotal();
+        input.value = Budget.formatNumber(value);
     },
 
-    addListItem: (desc = '', price = '') => {
+    formatNumber: (num) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+
+    addItem: (desc = '', amount = '') => {
         const container = document.getElementById('cost-items-container');
+        if (!container) return;
+
         const div = document.createElement('div');
         div.className = 'cost-item';
-        div.style = "display: flex; gap: 10px; margin-bottom: 10px; align-items: center;";
 
         div.innerHTML = `
-            <input type="text" placeholder="Deskripsi Biaya" value="${desc}" oninput="Budget.syncDetails()" style="flex: 2;">
-            <input type="text" placeholder="0" value="${price}" oninput="formatCurrencyInput(this); Budget.syncDetails()" style="flex: 1; text-align: right;">
-            <button type="button" onclick="removeCostItem(this)" style="background:none; border:none; color:red; cursor:pointer; font-size:1.2em;">×</button>
+            <div class="cost-desc-wrapper">
+                <input type="text" class="cost-desc" placeholder="Deskripsi (misal: Desain)" value="${desc}">
+            </div>
+            <div class="cost-amount-wrapper">
+                <input type="text" class="cost-amount" placeholder="0" value="${amount}">
+            </div>
+            <button type="button" class="btn-remove-cost">×</button>
         `;
 
+        const descInp = div.querySelector('.cost-desc');
+        const amountInp = div.querySelector('.cost-amount');
+        const removeBtn = div.querySelector('.btn-remove-cost');
+
+        const handleEnter = (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                Budget.addItem();
+                const allItems = document.querySelectorAll('.cost-desc');
+                if (allItems.length > 0) {
+                    allItems[allItems.length - 1].focus();
+                }
+            }
+        };
+
+        amountInp.addEventListener('input', (e) => {
+            Budget.formatCurrency(e.target);
+            Budget.updateTotal();
+            Budget.saveItems();
+        });
+
+        amountInp.addEventListener('keydown', handleEnter);
+        descInp.addEventListener('keydown', handleEnter);
+        descInp.addEventListener('input', () => Budget.saveItems());
+
+        removeBtn.addEventListener('click', () => {
+            div.remove();
+            Budget.updateTotal();
+            Budget.saveItems();
+        });
+
         container.appendChild(div);
-        Budget.syncDetails();
+        if (amount) Budget.formatCurrency(amountInp);
     },
 
-    removeItem: (btn) => {
-        btn.parentElement.remove();
-        Budget.syncDetails();
-        Budget.calculateTotal();
+    updateTotal: () => {
+        let total = 0;
+        document.querySelectorAll('.cost-amount').forEach(inp => {
+            const val = inp.value.replace(/\./g, '');
+            if (val) total += parseInt(val, 10);
+        });
+
+        const totalSpan = document.getElementById('calculated-total');
+        if (totalSpan) {
+            totalSpan.innerText = Budget.formatNumber(total);
+        }
+
+        // Sync to the main 'budget' key only if in detailed mode
+        const mode = Storage.get('budgetMode');
+        if (mode === 'detailed') {
+            Storage.save('budget', Budget.formatNumber(total));
+        }
     },
 
-    syncDetails: () => {
-        const container = document.getElementById('cost-items-container');
-        const rows = container.querySelectorAll('.cost-item');
-        const items = Array.from(rows).map(row => {
-            const inputs = row.querySelectorAll('input');
-            return {
-                desc: inputs[0].value,
-                price: inputs[1].value
-            };
+    saveItems: () => {
+        const items = [];
+        document.querySelectorAll('.cost-item').forEach(div => {
+            const desc = div.querySelector('.cost-desc').value;
+            const amount = div.querySelector('.cost-amount').value;
+            if (desc || amount) {
+                items.push({ desc, amount });
+            }
         });
         Storage.save('budgetDetails', JSON.stringify(items));
     },
 
-    calculateTotal: () => {
-        const mode = document.querySelector('input[name="budgetMode"]:checked')?.value;
-        let total = 0;
-
-        if (mode === 'simple') {
-            const val = document.getElementById('budget').value.replace(/[^0-9]/g, '');
-            total = parseInt(val) || 0;
-        } else {
-            const container = document.getElementById('cost-items-container');
-            const prices = container.querySelectorAll('input[placeholder="0"]');
-            prices.forEach(inp => {
-                const val = inp.value.replace(/[^0-9]/g, '');
-                total += (parseInt(val) || 0);
-            });
-
-            const display = document.getElementById('calculated-total');
-            if (display) display.textContent = total.toLocaleString('id-ID');
-
-            // Sync this total to the main hidden/alternate budget field for the document logic?
-            // Usually the document logic expects one 'budget' field.
-            // Let's mirror the calculated total to the simple budget input so the document picks it up.
-            const simpleInput = document.getElementById('budget');
-            if (simpleInput) simpleInput.value = total.toLocaleString('id-ID');
+    loadItems: () => {
+        const saved = Storage.get('budgetDetails');
+        if (saved) {
+            try {
+                const items = JSON.parse(saved);
+                const container = document.getElementById('cost-items-container');
+                if (container && items.length > 0) {
+                    container.innerHTML = '';
+                    items.forEach(item => Budget.addItem(item.desc, item.amount));
+                    Budget.updateTotal();
+                }
+            } catch (e) {
+                console.error("Error loading budget items", e);
+            }
         }
+    },
+
+    resetBudget: () => {
+        if (!confirm('Hapus semua isian anggaran dan rinciannya?')) return;
+
+        // 1. Clear Storage
+        Storage.save('budget', '');
+        Storage.save('budgetDetails', '[]');
+
+        // 2. Clear UI Simple
+        const budgetInput = document.getElementById('budget');
+        if (budgetInput) budgetInput.value = '';
+
+        // 3. Clear UI Detailed
+        const container = document.getElementById('cost-items-container');
+        if (container) {
+            container.innerHTML = '';
+            Budget.addItem(); // add one empty row back
+        }
+
+        // 4. Update Summary
+        Budget.updateTotal();
     }
 };
-
-// Internal reference for oninput inside HTML string templates
-window.Budget = Budget;

@@ -153,19 +153,20 @@
             <div class="form-section">
                 <h2>4. Finalisasi</h2>
 
-                <label>Mode Input Anggaran</label>
-                <div style="margin-bottom: 20px;">
-                    <label
-                        style="display: inline-flex; align-items: center; margin-right: 20px; font-weight: normal; background: none; transform: none;">
-                        <input type="radio" name="budgetMode" value="simple" checked onchange="toggleBudgetMode()"
-                            style="width: auto; margin: 0 5px 0 0; border: none;">
-                        Total Langsung
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <label>Mode Input Anggaran</label>
+                    <button type="button" onclick="resetBudget()" class="btn-clear-all">Reset Anggaran 🗑️</button>
+                </div>
+                <div class="budget-mode-selector">
+                    <label class="radio-container">
+                        <input type="radio" name="budgetMode" value="simple" checked onchange="toggleBudgetMode()">
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-text">Total Langsung</span>
                     </label>
-                    <label
-                        style="display: inline-flex; align-items: center; font-weight: normal; background: none; transform: none;">
-                        <input type="radio" name="budgetMode" value="detailed" onchange="toggleBudgetMode()"
-                            style="width: auto; margin: 0 5px 0 0; border: none;">
-                        Rincian Tabel
+                    <label class="radio-container">
+                        <input type="radio" name="budgetMode" value="detailed" onchange="toggleBudgetMode()">
+                        <span class="radio-checkmark"></span>
+                        <span class="radio-text">Rincian Tabel</span>
                     </label>
                 </div>
 
@@ -173,9 +174,9 @@
                 <div id="budget-simple">
                     <div class="toggle-wrapper">
                         <input type="checkbox" id="chk_budget">
-                        <label for="budget">Total Anggaran (Rp)</label>
+                        <label for="budget">Total Anggaran / Biaya</label>
                     </div>
-                    <input type="text" id="budget" placeholder="0" oninput="formatCurrencyInput(this)">
+                    <input type="text" id="budget" placeholder="Rp ..." oninput="formatCurrencyInput(this)">
                 </div>
 
                 <!-- Detailed Mode -->
@@ -187,13 +188,12 @@
                         <!-- Items will be added here -->
                     </div>
 
-                    <button type="button" onclick="addCostItem()"
-                        style="font-size: 0.9em; padding: 5px 15px; background: #e2e8f0; border: 1px dashed #333; margin-top: 10px;">+
-                        Tambah Item</button>
+                    <button type="button" onclick="addCostItem()" class="btn-add-item">
+                        + TAMBAH ITEM
+                    </button>
 
-                    <div
-                        style="margin-top: 20px; text-align: right; font-size: 1.2em; font-weight: bold; font-family: 'Permanent Marker', cursive;">
-                        Total: Rp <span id="calculated-total">0</span>
+                    <div class="budget-summary">
+                        TOTAL: RP <span id="calculated-total">0</span>
                     </div>
                 </div>
 

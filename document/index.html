@@ -103,21 +103,25 @@
 
         <div class="doc-section" id="sec-budget-detailed" style="display: none;">
             <h3>Rincian Anggaran</h3>
-            <table class="budget-table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <table class="budget-table"
+                style="width: 100%; border-collapse: collapse; margin-top: 10px; border: 1px solid #000;">
                 <thead>
-                    <tr style="background: #f4f4f4;">
-                        <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Deskripsi</th>
-                        <th style="border: 1px solid #ddd; padding: 8px; text-align: right; width: 150px;">Biaya</th>
+                    <tr style="border-bottom: 2px solid #000;">
+                        <th style="border: 1px solid #000; padding: 10px; text-align: left; background: transparent;">
+                            Deskripsi</th>
+                        <th
+                            style="border: 1px solid #000; padding: 10px; text-align: right; width: 180px; background: transparent;">
+                            Biaya</th>
                     </tr>
                 </thead>
                 <tbody id="view-budget-details">
                     <!-- Details here -->
                 </tbody>
                 <tfoot>
-                    <tr>
-                        <td style="border: 1px solid #ddd; padding: 8px; font-weight: bold;">TOTAL</td>
+                    <tr style="border-top: 2px solid #000;">
+                        <td style="border: 1px solid #000; padding: 10px; font-weight: bold;">TOTAL</td>
                         <td id="view-budget-total"
-                            style="border: 1px solid #ddd; padding: 8px; text-align: right; font-weight: bold;">-</td>
+                            style="border: 1px solid #000; padding: 10px; text-align: right; font-weight: bold;">-</td>
                     </tr>
                 </tfoot>
             </table>
@@ -134,35 +138,29 @@
         </div>
 
         <div class="approval-box">
-            <h3 style="text-align: center; margin-bottom: 5px; border: none !important;">PENGESAHAN (APPROVAL)</h3>
-            <p style="text-align: center; margin-top: 0; margin-bottom: 40px; color: #111;">Tanggal: <span
-                    class="current-date"></span></p>
+            <div class="approval-title">PENGESAHAN (APPROVAL)</div>
+            <div class="approval-date">Tanggal: <span class="current-date"></span></div>
 
-            <div style="display: flex; justify-content: space-around; margin-top: 40px;">
-                <div style="width: 280px; text-align: center;">
-                    <p style="margin-bottom: 5px;"><strong>Pihak Klien</strong></p>
-                    <div class="doc-signature-wrapper"
-                        style="border-bottom: 1px solid #333; height: 100px; position: relative; margin: 0 auto;">
-                        <canvas id="sig-client" width="280" height="100"
+            <div class="signature-grid">
+                <div class="signature-col">
+                    <div class="signature-label">Pihak Klien</div>
+                    <div class="doc-signature-wrapper" style="position: relative;">
+                        <canvas id="sig-client" width="300" height="100"
                             style="display: block; cursor: crosshair;"></canvas>
-                        <div
-                            style="position: absolute; bottom: 2px; right: 2px; font-size: 0.6em; color: #ccc; pointer-events: none;">
-                            (Klik untuk TTD)</div>
                     </div>
-                    <p id="view-client-sign" style="margin-top: 8px; font-weight: bold; min-height: 20px;"></p>
+                    <div class="signature-line"></div>
+                    <p id="view-client-sign" style="margin-top: 5px; font-weight: bold; min-height: 20px;"></p>
                 </div>
 
-                <div style="width: 280px; text-align: center;">
-                    <p style="margin-bottom: 5px;"><strong>Pihak Pengembang</strong></p>
-                    <div class="doc-signature-wrapper"
-                        style="border-bottom: 1px solid #333; height: 100px; position: relative; margin: 0 auto;">
-                        <canvas id="sig-developer" width="280" height="100"
+                <div class="signature-col">
+                    <div class="signature-label" style="text-align: right;">Pihak Pengembang</div>
+                    <div class="doc-signature-wrapper" style="position: relative;">
+                        <canvas id="sig-developer" width="300" height="100"
                             style="display: block; cursor: crosshair;"></canvas>
-                        <div
-                            style="position: absolute; bottom: 2px; right: 2px; font-size: 0.6em; color: #ccc; pointer-events: none;">
-                            (Klik untuk TTD)</div>
                     </div>
-                    <p id="view-freelancer-sign" style="margin-top: 8px; font-weight: bold; min-height: 20px;"></p>
+                    <div class="signature-line"></div>
+                    <p id="view-freelancer-sign"
+                        style="margin-top: 5px; font-weight: bold; min-height: 20px; text-align: right;"></p>
                 </div>
             </div>
         </div>
@@ -170,11 +168,7 @@
 
     <!-- FOOTER -->
     <div class="doc-footer">
-
-        <div
-            style="border-top: 1px solid #333; margin-top: 5px; font-size: 0.8em; text-align: center; padding-top: 5px;">
-            <span class="current-timestamp"></span>
-        </div>
+        <span class="current-timestamp"></span>
     </div>
     </div>
 

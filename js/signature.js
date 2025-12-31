@@ -88,7 +88,7 @@ export const Signature = {
     },
 
     load: (dataUrl) => {
-        if (!dataUrl) return;
+        if (!dataUrl || !Signature.ctx) return;
         const img = new Image();
         img.onload = () => {
             Signature.ctx.drawImage(img, 0, 0);

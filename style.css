@@ -76,18 +76,51 @@ h2 {
     font-weight: 700;
 }
 
-label {
+label:not(.radio-container):not(.radio-text) {
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1.1em;
     color: var(--pencil-color);
-    /* margin-top: 20px; Moved to toggle-wrapper or direct label usage */
     background: var(--highlighter);
     display: inline-block;
     padding: 0 5px;
     transform: rotate(-0.5deg);
     cursor: pointer;
 }
+
+.radio-container {
+    background: transparent !important;
+    /* No highlighter for radios */
+    transform: none !important;
+    padding-left: 35px !important;
+    display: inline-flex !important;
+    align-items: center;
+}
+
+.radio-text {
+    background: transparent !important;
+    padding: 0 !important;
+    pointer-events: none;
+}
+
+.btn-clear-all {
+    background: none;
+    border: 1px solid #e57373;
+    color: #e57373;
+    font-family: 'Indie Flower', cursive;
+    font-size: 0.9em;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 15px 3px 15px 3px / 3px 15px 3px 15px;
+    /* Sketchy Border */
+    transition: all 0.3s;
+}
+
+.btn-clear-all:hover {
+    background: #ffebee;
+    transform: scale(1.05) rotate(1deg);
+}
+
 
 .toggle-wrapper {
     display: flex;
@@ -295,6 +328,45 @@ textarea {
     line-height: 24px;
 }
 
+/* Cost Item (Detailed Budget) */
+.cost-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 5px;
+    align-items: flex-end;
+}
+
+.cost-item .cost-desc-wrapper {
+    flex: 2;
+}
+
+.cost-item .cost-amount-wrapper {
+    flex: 1;
+}
+
+.cost-item .btn-remove-cost {
+    background: #FFCDD2;
+    color: #C62828;
+    border: 1px solid #C62828;
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    font-family: 'Indie Flower', cursive;
+}
+
+.cost-item .btn-remove-cost:hover {
+    background: #EF9A9A;
+    transform: scale(1.1) rotate(5deg);
+}
+
 .btn-remove {
     background: #ef9a9a;
     color: #b71c1c;
@@ -315,6 +387,22 @@ textarea {
     background: #e53935;
     color: white;
     transform: rotate(90deg);
+}
+
+.btn-add-item {
+    font-family: 'Permanent Marker', cursive !important;
+    font-size: 1.1em !important;
+    padding: 8px 20px !important;
+    background: #e2e8f0 !important;
+    border: 2px dashed #333 !important;
+    margin-top: 15px !important;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 12px 2px 12px 2px / 2px 12px 2px 12px !important;
+}
+
+.btn-add-item:hover {
+    background: #cbd5e0 !important;
+    transform: rotate(-1deg) scale(1.02) !important;
 }
 
 .btn-add-list {
@@ -440,6 +528,17 @@ textarea {
     background: #ffccbc;
 }
 
+/* Budget Summary (Calculated) */
+.budget-summary {
+    margin-top: 30px;
+    text-align: right;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: 'Permanent Marker', cursive;
+    color: var(--ink-color);
+    line-height: 40px;
+}
+
 /* 8. Visual Progress Tab */
 .tab-link.complete::after {
     content: '★';
@@ -469,4 +568,85 @@ textarea {
     50% {
         transform: translateY(-5px);
     }
+}
+
+/* Custom Radio Buttons (Notebook Theme) */
+.budget-mode-selector {
+    display: flex;
+    gap: 25px;
+    margin: 10px 0 20px 0;
+}
+
+.radio-container {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 1.1em;
+    user-select: none;
+    position: relative;
+    padding-left: 35px;
+    min-height: 30px;
+}
+
+.radio-container input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+    margin: 0;
+}
+
+.radio-checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    border: 2px solid var(--ink-color);
+    border-radius: 50% 45% 52% 48% / 48% 52% 45% 50%;
+    transition: all 0.2s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.radio-container:hover input~.radio-checkmark {
+    background-color: rgba(26, 35, 126, 0.05);
+}
+
+.radio-container input:checked~.radio-checkmark {
+    border-width: 3px;
+    border-color: #1a237e;
+    transform: translateY(-50%) rotate(5deg);
+}
+
+.radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio-container input:checked~.radio-checkmark:after {
+    display: block;
+}
+
+.radio-container .radio-checkmark:after {
+    left: 5px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1a237e;
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.radio-text {
+    line-height: 30px;
+    pointer-events: none;
 }
